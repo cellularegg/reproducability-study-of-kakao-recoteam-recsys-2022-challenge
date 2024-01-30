@@ -19,7 +19,7 @@ Also, pytroch lightning needs to be installed. This can be done using
 !pip3 install pytorch-lightning
 ```
 
-Note this approach is barebone. Once could also bother and set up a virtual env in Google Colab. We did not.
+Note this approach is barebone. One could also bother and set up a virtual env in Google Colab. We did not.
 
 
 ## Dataloading
@@ -45,7 +45,7 @@ in the /mlp folder, before executing the file
 
 search for the line EMBED_DIM = 16 and change it to 256. We assume that this refers to embedding dimension stated in the paper. Now execute the notebook. 
 
-**Be sure to be inside the mlp folder once executing, in order for the folder structure to work. **
+*Be sure to be inside the mlp folder once executing, in order for the folder structure to work. *
 
 The notebook filename seems to have some unsupported chars, so it may happen that it does not download correctly from the main repocitory.
 
