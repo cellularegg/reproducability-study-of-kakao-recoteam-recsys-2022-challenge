@@ -1,0 +1,9 @@
+fire
+joblib
+easydict
+pandas<=1.4.2
+scikit-learn
+Cython
+ray
+tqdm
+orjson

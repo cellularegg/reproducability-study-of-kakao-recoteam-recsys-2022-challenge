@@ -5,6 +5,7 @@ This readme should guide you through the process of reproducing the results we r
 Note that README_original.md refers to the original readme from the paper. 
 Please refer to https://github.com/cellularegg/reproducability-study-of-kakao-recoteam-recsys-2022-challenge/tree/main for more details.
 
+# MLP
 ## General
 We trained the models using a google Colab+ subscription on a V100 GPU. We synced the repository with google drive using:
 
@@ -81,3 +82,16 @@ Internal validation dataset split.ipynb
 ```
 
 with the notebooks we used for training. Those only contain minor adaptions like random seed and also the naming of the stored models. Also, it should be more easibly usable in google colab.
+
+# GRU4Rec
+## Setup
+To train the GRU4Rec models a docker image was created. The Dockerfile is located in the `docker` folder. Build the image using `docker build -t gpu-train .` while having your working directory set to docker. The code and data are not copied into the docker image, they are mounted when starting the container using `docker run -v </host/path/to/code/>:/data/`.
+
+## Preprocessing
+Download the dataset as described above and then execute `python preprocessing.py --submit=True` to preprocess the data.
+
+## Model training
+To train the model execute the `run.sh` script. To do this in the Docker container use the following command `docker run -it -d -v </host/path/to/code/>:/data/ --gpus '"device=0"' gpu-train ./run.sh`. After the model training is finished the models should be in the `/save` directory. Since the evaluation only works for gru the `run_gru.sh` can be used to train only the gru model.
+
+## Evaluation
+To evaluate the models trained with the `/run.sh` file use the following command `python module/models/ensemble.py --submit=True --kind="final"`. Unfortunately we were not able to load any other models than gru. If all models were trained remove all models from the save folder except the gru ones. The python command should create a `submit.result-...` file inside the save folder. To get the MRR the `get_mrr.ipynb` can be used
